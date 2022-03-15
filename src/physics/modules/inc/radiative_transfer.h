@@ -160,7 +160,7 @@ private:
 
     // picket-fence scheme
 
-    bool* If_gam_P;
+    bool If_gam_P;
     double* gam_P;
     double* gam_V__h;
     double* Beta_V__h;
