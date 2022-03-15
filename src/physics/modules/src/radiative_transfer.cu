@@ -942,19 +942,21 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
                     fprintf(stderr, "OpaTableKappa_d cudaMemcpyHostToDevice failed!");
                     //goto Error;
                 }
+                
+                 // check for error
+                cudaError_t error = cudaGetLastError();
+                if(error != cudaSuccess)
+                {
+                    // print the CUDA error message and exit
+                    printf("CUDA error: %s\n", cudaGetErrorString(error));
+                    exit(-1);
+                }  
 
             }
 
             
 
-            // check for error
-            cudaError_t error = cudaGetLastError();
-            if(error != cudaSuccess)
-            {
-                // print the CUDA error message and exit
-                printf("CUDA error: %s\n", cudaGetErrorString(error));
-                exit(-1);
-            }            
+                     
             
                       
 
