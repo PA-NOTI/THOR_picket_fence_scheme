@@ -923,7 +923,7 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
                     //goto Error;
                 }
 
-
+                /*
                 //double OpaTableTemperature__h[1060];
                 PF_text_file_to_array("src/physics/modules/src/OpaTableTemperature.txt" , OpaTableTemperature__h, 1060);
                 //double OpaTablePressure__h[1060];
@@ -946,6 +946,7 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
                     fprintf(stderr, "OpaTableKappa_d cudaMemcpyHostToDevice failed!");
                     //goto Error;
                 }
+                */
                 
                  // check for error
                 cudaError_t error = cudaGetLastError();
