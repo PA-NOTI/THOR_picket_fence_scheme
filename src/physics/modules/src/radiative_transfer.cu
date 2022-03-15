@@ -125,7 +125,7 @@ bool radiative_transfer::initialise_memory(const ESP &              esp,
 
         // picket fence parameters
         
-        If_gam_P= (bool *)malloc(1  * sizeof(bool));
+        If_gam_P = malloc(1  * sizeof(bool));
 
         cudaMalloc((void **)&k_IR_2_nv_d, 2*esp.nv * esp.point_num * sizeof(double));
         cudaMalloc((void **)&k_V_3_nv_d, 3*esp.nv * esp.point_num * sizeof(double));
