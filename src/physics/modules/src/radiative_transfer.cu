@@ -281,7 +281,7 @@ bool radiative_transfer::free_memory() {
 
        
         //free(If_gam_P);
-        /*
+        
         free(k_IR_2__h);
         free(k_V_3__h);
         free(gam_V__h);
@@ -293,7 +293,7 @@ bool radiative_transfer::free_memory() {
         free(AB__h);
         free(gam_P);
         free(Teff);
-        */
+        
 
         free(OpaTableTemperature__h);
         free(OpaTablePressure__h);
@@ -842,11 +842,11 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
         dim3 NBRT((esp.point_num / NTH) + 1, 1, 1);
 
         if (picket_fence_mod){
-            printf("start picket-fence\n");
-            printf("If_gam_P = %d\n",If_gam_P);
-            printf("Tirr = %d\n",Tirr);
+            //printf("start picket-fence\n");
+            //printf("If_gam_P = %d\n",If_gam_P);
+            //printf("Tirr = %d\n",Tirr);
             
-            if (If_gam_P==true) {
+            /if (If_gam_P==true) {
             //if (isnan(Tirr)) {
                 
                 printf("gam_Parmentier calculated");
@@ -900,7 +900,7 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
                 If_gam_P=false;
                 
 
-            }
+            
 
 
                 bool cudaStatus;
@@ -968,6 +968,8 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
                     printf("CUDA error: %s\n", cudaGetErrorString(error));
                     exit(-1);
                 }
+                
+             //}
                 
             
 
