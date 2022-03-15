@@ -846,7 +846,7 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
             //printf("If_gam_P = %d\n",If_gam_P);
             //printf("Tirr = %d\n",Tirr);
             
-            /if (If_gam_P==true) {
+            //if (If_gam_P==true) {
             //if (isnan(Tirr)) {
                 
                 printf("gam_Parmentier calculated");
