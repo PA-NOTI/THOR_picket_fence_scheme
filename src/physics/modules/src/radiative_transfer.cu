@@ -837,8 +837,11 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
         dim3 NBRT((esp.point_num / NTH) + 1, 1, 1);
 
         if (picket_fence_mod){
+            printf("start picket-fence");
             
-            //if (If_gam_P==1) {
+            if (If_gam_P==1) {
+                
+                printf("gam_Parmentier calculated");
 
                 Tirr = Tstar * pow((radius_star) / (planet_star_dist) ,0.5);
 
@@ -952,8 +955,9 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
                     exit(-1);
                 }
                 If_gam_P=0;
+                
 
-            //}
+            }
 
             
 
