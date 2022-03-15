@@ -277,7 +277,7 @@ bool radiative_transfer::free_memory() {
         cudaFree(AB_d);
 
        
-        
+        free(If_gam_P)
         free(k_IR_2__h);
         free(k_V_3__h);
         free(gam_V__h);
@@ -839,7 +839,8 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
         if (picket_fence_mod){
             printf("start picket-fence");
             
-            if (If_gam_P==1) {
+            //if (If_gam_P==1) {
+            if (isnan(Tirr)) {
                 
                 printf("gam_Parmentier calculated");
 
