@@ -840,7 +840,9 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
         dim3 NBRT((esp.point_num / NTH) + 1, 1, 1);
 
         if (picket_fence_mod){
-            printf("start picket-fence");
+            printf("start picket-fence\n");
+            printf("If_gam_P = %d\n",If_gam_P);
+            printf("Tirr = %d\n",Tirr);
             
             if (If_gam_P==false) {
             //if (isnan(Tirr)) {
