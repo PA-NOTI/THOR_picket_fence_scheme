@@ -632,7 +632,6 @@ int main(int argc, char** argv) {
 
     // check init pt profile string
     init_PT_profile_types init_PT_profile = ISOTHERMAL;
-    bool If_gam_P=1;
 
     if (init_PT_profile_str == "isothermal") {
         init_PT_profile = ISOTHERMAL;
