@@ -97,6 +97,7 @@ bool radiative_transfer::initialise_memory(const ESP &              esp,
                                            device_RK_array_manager &phy_modules_core_arrays) {
 
     double picket_fence_mod = true;
+    bool If_gam_P=true;
 
     cudaMalloc((void **)&ASR_d, esp.point_num * sizeof(double));
     cudaMalloc((void **)&OLR_d, esp.point_num * sizeof(double));
@@ -839,7 +840,7 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
         if (picket_fence_mod){
             printf("start picket-fence");
             
-            if (elapsed_time<60) {
+            if (If_gam_P==true) {
             //if (isnan(Tirr)) {
                 
                 printf("gam_Parmentier calculated");
@@ -956,7 +957,7 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
                     printf("CUDA error: %s\n", cudaGetErrorString(error));
                     exit(-1);
                 }
-                If_gam_P=0;
+                If_gam_P=false;
                 
 
             }
