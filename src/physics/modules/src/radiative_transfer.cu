@@ -277,7 +277,7 @@ bool radiative_transfer::free_memory() {
         cudaFree(AB_d);
 
        
-        free(If_gam_P);
+        //free(If_gam_P);
         free(k_IR_2__h);
         free(k_V_3__h);
         free(gam_V__h);
