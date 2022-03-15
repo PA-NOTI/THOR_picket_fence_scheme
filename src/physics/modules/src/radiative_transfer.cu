@@ -846,7 +846,7 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
             //printf("If_gam_P = %d\n",If_gam_P);
             //printf("Tirr = %d\n",Tirr);
             
-            //if (If_gam_P==true) {
+            
             //if (isnan(Tirr)) {
                 
                 printf("gam_Parmentier calculated");
@@ -854,6 +854,10 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
                 Tirr = Tstar * pow((radius_star) / (planet_star_dist) ,0.5);
 
                 F0_h = sb * pow(Tirr, 4.0);
+            
+            if (If_gam_P==true) {
+
+                If_gam_P=false;
 
                 for (int c = 0; c <  esp.point_num; c++){
                     // Parmentier opacity profile parameters - first get Bond albedo
@@ -883,8 +887,8 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
                     }
 
                 }
-
-
+            
+             
 
                 gam_Parmentier(esp.point_num,
                     esp.nv,
@@ -897,7 +901,7 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
                     gam_2__h,
                     gam_P);
                 
-                If_gam_P=false;
+            
                 
 
             
@@ -969,7 +973,7 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
                     exit(-1);
                 }
                 
-             //}
+            }
                 
             
 
