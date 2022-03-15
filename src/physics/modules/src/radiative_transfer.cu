@@ -281,6 +281,7 @@ bool radiative_transfer::free_memory() {
 
        
         //free(If_gam_P);
+        /*
         free(k_IR_2__h);
         free(k_V_3__h);
         free(gam_V__h);
@@ -292,6 +293,7 @@ bool radiative_transfer::free_memory() {
         free(AB__h);
         free(gam_P);
         free(Teff);
+        */
 
         free(OpaTableTemperature__h);
         free(OpaTablePressure__h);
@@ -894,6 +896,11 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
                     gam_1__h,
                     gam_2__h,
                     gam_P);
+                
+                If_gam_P=false;
+                
+
+            }
 
 
                 bool cudaStatus;
@@ -962,10 +969,7 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
                     exit(-1);
                 }
                 
-                If_gam_P=false;
-                
-
-            }
+            
 
             
 
