@@ -849,14 +849,14 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
             
             //if (isnan(Tirr)) {
                 
-                printf("gam_Parmentier calculated");
+               
 
                 Tirr = Tstar * pow((radius_star) / (planet_star_dist) ,0.5);
 
                 F0_h = sb * pow(Tirr, 4.0);
             
             if (If_gam_P==true) {
-
+                printf("gam_Parmentier calculated");
                 If_gam_P=false;
 
                 for (int c = 0; c <  esp.point_num; c++){
