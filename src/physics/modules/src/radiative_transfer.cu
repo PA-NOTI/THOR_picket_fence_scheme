@@ -839,7 +839,7 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
         if (picket_fence_mod){
             printf("start picket-fence");
             
-            if (If_gam_P==1) {
+            if (elapsed_time<60) {
             //if (isnan(Tirr)) {
                 
                 printf("gam_Parmentier calculated");
