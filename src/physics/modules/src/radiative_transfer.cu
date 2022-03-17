@@ -841,119 +841,119 @@ bool radiative_transfer::phy_loop(ESP &                  esp,
             Tirr = Tstar * pow((radius_star) / (planet_star_dist) ,0.5);
 
             F0_h = sb * pow(Tirr, 4.0);
-                
-            for (int c = 0; c <  esp.point_num; c++){
-                // Parmentier opacity profile parameters - first get Bond albedo
 
-                Teff[c] = pow(
-                        (   pow(esp.Tint, 4.0) +
-                            (1.0 / sqrt(3.0)) *
-                            pow(Tirr, 4.0)
-                        ),
-                        0.25);
-
-                Bond_Parmentier(Teff[c], sim.Gravit, AB__h[c]);
+            if (If_gam_P==true) {
+                printf("gam_Parmentier calculated");
+                If_gam_P=false;
                 
-               
-                // Recalculate Teff and then find parameters
-                if (esp.insolation.get_host_cos_zenith_angles()[c] > 0.0)
-                {
+                for (int c = 0; c <  esp.point_num; c++){
+                    // Parmentier opacity profile parameters - first get Bond albedo
+
                     Teff[c] = pow(
-                        (   pow(esp.Tint, 4.0) +
-                            (1.0 - AB__h[c]) *
-                            esp.insolation.get_host_cos_zenith_angles()[c] *
-                            pow(Tirr, 4.0)
-                        ),
-                        0.25);
-                } else {
-                    Teff[c] = pow( pow(esp.Tint, 4.0) + 0.0, 0.25);
+                            (   pow(esp.Tint, 4.0) +
+                                (1.0 / sqrt(3.0)) *
+                                pow(Tirr, 4.0)
+                            ),
+                            0.25);
+
+                    Bond_Parmentier(Teff[c], sim.Gravit, AB__h[c]);
+                    
+                
+                    // Recalculate Teff and then find parameters
+                    if (esp.insolation.get_host_cos_zenith_angles()[c] > 0.0)
+                    {
+                        Teff[c] = pow(
+                            (   pow(esp.Tint, 4.0) +
+                                (1.0 - AB__h[c]) *
+                                esp.insolation.get_host_cos_zenith_angles()[c] *
+                                pow(Tirr, 4.0)
+                            ),
+                            0.25);
+                    } else {
+                        Teff[c] = pow( pow(esp.Tint, 4.0) + 0.0, 0.25);
+                    }
+                    
                 }
                 
-            }
-            
-            
-            
-            gam_Parmentier(esp.point_num,
-                esp.nv,
-                Teff,
-                2,
-                gam_V__h,
-                Beta_V__h,
-                Beta__h,
-                gam_1__h,
-                gam_2__h,
-                gam_P);
                 
                 
-            bool cudaStatus;
-            cudaStatus = cudaMemcpy(gam_V_3_d, gam_V__h, 3*esp.point_num * sizeof(double), cudaMemcpyHostToDevice);
-            if (cudaStatus != cudaSuccess) {
-                fprintf(stderr, "gam_V_3_d cudaMemcpyHostToDevice failed!");
-                //goto Error;
-            }
-            cudaStatus = cudaMemcpy(Beta_V_3_d, Beta_V__h, 3*esp.point_num * sizeof(double), cudaMemcpyHostToDevice);
-            if (cudaStatus != cudaSuccess) {
-                fprintf(stderr, "Beta_V_3_d cudaMemcpyHostToDevice failed!");
-                //goto Error;
-            }
-            cudaStatus = cudaMemcpy(Beta_2_d, Beta__h, 2*esp.point_num * sizeof(double), cudaMemcpyHostToDevice);
-            if (cudaStatus != cudaSuccess) {
-                fprintf(stderr, "Beta_2_d cudaMemcpyHostToDevice failed!");
-                //goto Error;
-            }
-            cudaStatus = cudaMemcpy(gam_1_d, gam_1__h, esp.point_num *  sizeof(double), cudaMemcpyHostToDevice);
-            if (cudaStatus != cudaSuccess) {
-                fprintf(stderr, "gam_1_d cudaMemcpyHostToDevice failed!");
-                //goto Error;
-            }
-            cudaStatus = cudaMemcpy(gam_2_d, gam_2__h, esp.point_num * sizeof(double), cudaMemcpyHostToDevice);
-            if (cudaStatus != cudaSuccess) {
-                fprintf(stderr, "gam_2_d cudaMemcpyHostToDevice failed!");
-                //goto Error;
-            }
-            cudaStatus = cudaMemcpy(AB_d, AB__h, esp.point_num * sizeof(double), cudaMemcpyHostToDevice);
-            if (cudaStatus != cudaSuccess) {
-                fprintf(stderr, "AB_d cudaMemcpyHostToDevice failed!");
-                //goto Error;
-            }
+                gam_Parmentier(esp.point_num,
+                    esp.nv,
+                    Teff,
+                    2,
+                    gam_V__h,
+                    Beta_V__h,
+                    Beta__h,
+                    gam_1__h,
+                    gam_2__h,
+                    gam_P);
+                    
+                    
+                bool cudaStatus;
+                cudaStatus = cudaMemcpy(gam_V_3_d, gam_V__h, 3*esp.point_num * sizeof(double), cudaMemcpyHostToDevice);
+                if (cudaStatus != cudaSuccess) {
+                    fprintf(stderr, "gam_V_3_d cudaMemcpyHostToDevice failed!");
+                    //goto Error;
+                }
+                cudaStatus = cudaMemcpy(Beta_V_3_d, Beta_V__h, 3*esp.point_num * sizeof(double), cudaMemcpyHostToDevice);
+                if (cudaStatus != cudaSuccess) {
+                    fprintf(stderr, "Beta_V_3_d cudaMemcpyHostToDevice failed!");
+                    //goto Error;
+                }
+                cudaStatus = cudaMemcpy(Beta_2_d, Beta__h, 2*esp.point_num * sizeof(double), cudaMemcpyHostToDevice);
+                if (cudaStatus != cudaSuccess) {
+                    fprintf(stderr, "Beta_2_d cudaMemcpyHostToDevice failed!");
+                    //goto Error;
+                }
+                cudaStatus = cudaMemcpy(gam_1_d, gam_1__h, esp.point_num *  sizeof(double), cudaMemcpyHostToDevice);
+                if (cudaStatus != cudaSuccess) {
+                    fprintf(stderr, "gam_1_d cudaMemcpyHostToDevice failed!");
+                    //goto Error;
+                }
+                cudaStatus = cudaMemcpy(gam_2_d, gam_2__h, esp.point_num * sizeof(double), cudaMemcpyHostToDevice);
+                if (cudaStatus != cudaSuccess) {
+                    fprintf(stderr, "gam_2_d cudaMemcpyHostToDevice failed!");
+                    //goto Error;
+                }
+                cudaStatus = cudaMemcpy(AB_d, AB__h, esp.point_num * sizeof(double), cudaMemcpyHostToDevice);
+                if (cudaStatus != cudaSuccess) {
+                    fprintf(stderr, "AB_d cudaMemcpyHostToDevice failed!");
+                    //goto Error;
+                }
 
+                /*
+                //double OpaTableTemperature__h[1060];
+                PF_text_file_to_array("src/physics/modules/src/OpaTableTemperature.txt" , OpaTableTemperature__h, 1060);
+                //double OpaTablePressure__h[1060];
+                PF_text_file_to_array("src/physics/modules/src/OpaTablePressure.txt" , OpaTablePressure__h, 1060);
+                //double OpaTableKappa__h[1060];
+                PF_text_file_to_array("src/physics/modules/src/OpaTableKappa.txt" , OpaTableKappa__h, 1060);
 
-            //double OpaTableTemperature__h[1060];
-            PF_text_file_to_array("src/physics/modules/src/OpaTableTemperature.txt" , OpaTableTemperature__h, 1060);
-            //double OpaTablePressure__h[1060];
-            PF_text_file_to_array("src/physics/modules/src/OpaTablePressure.txt" , OpaTablePressure__h, 1060);
-            //double OpaTableKappa__h[1060];
-            PF_text_file_to_array("src/physics/modules/src/OpaTableKappa.txt" , OpaTableKappa__h, 1060);
-
-            cudaStatus = cudaMemcpy(OpaTableTemperature_d, OpaTableTemperature__h,1060 *  sizeof(double), cudaMemcpyHostToDevice);
-            if (cudaStatus != cudaSuccess) {
-                fprintf(stderr, "OpaTableTemperature_d cudaMemcpyHostToDevice failed!");
-                //goto Error;
+                cudaStatus = cudaMemcpy(OpaTableTemperature_d, OpaTableTemperature__h,1060 *  sizeof(double), cudaMemcpyHostToDevice);
+                if (cudaStatus != cudaSuccess) {
+                    fprintf(stderr, "OpaTableTemperature_d cudaMemcpyHostToDevice failed!");
+                    //goto Error;
+                }
+                cudaStatus = cudaMemcpy(OpaTablePressure_d, OpaTablePressure__h, 1060 * sizeof(double), cudaMemcpyHostToDevice);
+                if (cudaStatus != cudaSuccess) {
+                    fprintf(stderr, "OpaTablePressure_d cudaMemcpyHostToDevice failed!");
+                    //goto Error;
+                }
+                cudaStatus = cudaMemcpy(OpaTableKappa_d, OpaTableKappa__h, 1060 * sizeof(double), cudaMemcpyHostToDevice);
+                if (cudaStatus != cudaSuccess) {
+                    fprintf(stderr, "OpaTableKappa_d cudaMemcpyHostToDevice failed!");
+                    //goto Error;
+                }
+                */
+                // check for error
+                cudaError_t error = cudaGetLastError();
+                if(error != cudaSuccess)
+                {
+                    // print the CUDA error message and exit
+                    printf("CUDA error: %s\n", cudaGetErrorString(error));
+                    exit(-1);
+                }            
             }
-            cudaStatus = cudaMemcpy(OpaTablePressure_d, OpaTablePressure__h, 1060 * sizeof(double), cudaMemcpyHostToDevice);
-            if (cudaStatus != cudaSuccess) {
-                fprintf(stderr, "OpaTablePressure_d cudaMemcpyHostToDevice failed!");
-                //goto Error;
-            }
-            cudaStatus = cudaMemcpy(OpaTableKappa_d, OpaTableKappa__h, 1060 * sizeof(double), cudaMemcpyHostToDevice);
-            if (cudaStatus != cudaSuccess) {
-                fprintf(stderr, "OpaTableKappa_d cudaMemcpyHostToDevice failed!");
-                //goto Error;
-            }
-
-            
-
-            
-
-            // check for error
-            cudaError_t error = cudaGetLastError();
-            if(error != cudaSuccess)
-            {
-                // print the CUDA error message and exit
-                printf("CUDA error: %s\n", cudaGetErrorString(error));
-                exit(-1);
-            }            
-            
                       
 
             rtm_picket_fence<<<NBRT, NTH>>>(esp.pressure_d,
