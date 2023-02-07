@@ -4,7 +4,8 @@
 
 ![CI](https://github.com/exoclime/THOR/workflows/CI/badge.svg)
 
-![https://zenodo.org/badge/latestdoi/361697896](https://zenodo.org/badge/361697896.svg)
+[![DOI](https://zenodo.org/badge/361697896.svg)](https://zenodo.org/badge/latestdoi/361697896)
+
 
 ### Flexible Global Circulation Model to Explore Planetary Atmospheres
 
