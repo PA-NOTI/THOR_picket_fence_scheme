@@ -4,6 +4,8 @@
 
 ![CI](https://github.com/exoclime/THOR/workflows/CI/badge.svg)
 
+![https://zenodo.org/badge/latestdoi/361697896](https://zenodo.org/badge/361697896.svg)
+
 ### Flexible Global Circulation Model to Explore Planetary Atmospheres
 
 *THOR* is a GCM that solves the three-dimensional non-hydrostatic Euler equations on an icosahedral grid. *THOR* was designed to run on Graphics Processing Units (GPUs).
