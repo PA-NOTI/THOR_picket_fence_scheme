@@ -1,4 +1,6 @@
-# THOR (development git for the picket-fence RT scheme)#
+# THOR (development git for the picket-fence RT scheme)
+
+[See main GitHub of THOR](https://github.com/exoclime/THOR)
 
 ![CI](https://github.com/exoclime/THOR/workflows/CI/badge.svg)
 
